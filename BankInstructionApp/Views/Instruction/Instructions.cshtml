@@ -1,0 +1,146 @@
+﻿@model IEnumerable<BankInstructionApp.Models.InstructionViewModel>
+
+@{
+    ViewBag.Title = "Talimatlar";
+}
+
+<h2>TALİMATLAR</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Talimat ID</th>
+                    <th>Banka Hesabı</th>
+                    <th>Cari Hesap</th>
+                    <th>İşlem Türü</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var instruction in Model)
+                {
+                    <tr>
+                        <td>@instruction.Id</td>
+                        <td>
+                            @{
+                                var bankAccountListItem = instruction.YourBankAccountList?.FirstOrDefault(b => b.Value == instruction.BankAccountId.ToString());
+                                if (bankAccountListItem != null)
+                                {
+                                    @bankAccountListItem.Text
+                                }
+                                else
+                                {
+                                    <text>N/A</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                if (instruction.YourCustomerBankInfoList != null)
+                                {
+                                    foreach (var item in instruction.YourCustomerBankInfoList)
+                                    {
+                                        if (item?.Text != null)
+                                        {
+                                            @item.Text
+                                            <br /><br />
+                                        }
+                                        else
+                                        {
+                                            <text>N/A</text>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <text>N/A</text>
+                                }
+
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var operationTypeListItem = instruction.YourOperationTypeList?.FirstOrDefault(o => o.Value == instruction.operationTypeID.ToString());
+                                if (operationTypeListItem != null)
+                                {
+                                    @operationTypeListItem.Text
+                                }
+                                else
+                                {
+                                    <text>N/A</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("UpdateInstruction", "Instruction", new { id = instruction.Id })" class="btn btn-primary">Güncelle</a>
+                        </td>
+                        <td>
+                            <button onclick="confirmDelete('@instruction.Id')" class="btn btn-danger">Sil</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Bu müşteri hesabını silmek istediğinizden emin misiniz?")) {
+                window.location.href = '@Url.Action("DeleteInstruction", "Instruction")?id=' + id;
+            }
+        }
+    </script>
+}
+else
+{
+    <p>Mevcut talimat bulunamadı.</p>
+}
+<div id="fixed-buttons" class="fixed-buttons">
+    <div class="download-button">
+        @Html.ActionLink("Talimatları PDF Olarak İndir", "GenerateInstructionsPdf", "Pdf", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div class="new-button">
+        <a href="@Url.Action("NewInstructions", "Instruction")" class="btn btn-primary btn-lg">Yeni Talimat Oluştur</a>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var fixedButtons = document.getElementById('fixed-buttons');
+
+        if (scrollTop > 100) {
+            fixedButtons.style.display = 'none';
+        } else {
+            fixedButtons.style.display = 'block';
+        }
+    });
+</script>
+
+<style>
+    .fixed-buttons {
+        position: fixed;
+        top: 60px;
+        right: 20px;
+        text-align: right; 
+    }
+
+        .fixed-buttons .btn {
+            width: 150px; 
+            height: 40px; 
+            font-size: 11px; 
+        }
+
+    .download-button {
+        margin-bottom: 10px;
+    }
+
+    .new-button {
+        margin-bottom: 10px;
+    }
+</style>
+

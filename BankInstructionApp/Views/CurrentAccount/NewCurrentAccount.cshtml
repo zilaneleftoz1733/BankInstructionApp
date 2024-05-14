@@ -1,0 +1,68 @@
+﻿@model BankInstructionApp.Models.CustomerBankInfo
+
+@{
+    ViewBag.Title = "Yeni Kayıt Ekle";
+}
+
+<h2>Yeni Cari Hesabı Oluştur</h2>
+<div style="margin-top: 20px;"></div>
+
+@using (Html.BeginForm("Create", "CurrentAccount", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerCode, "Cari Kodu", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.CustomerCode, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerName, "Cari adı", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+    </div>
+
+    <div style="margin-top: 20px;"></div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TaxNumber, "Vergi No", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.TaxNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TaxNumber, "", new { @class = "text-danger" })
+    </div>
+    <div style="margin-top: 20px;"></div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.BranchName, "ŞUBE ADI", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
+    </div>
+    <div style="margin-top: 20px;"></div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IBAN, "IBAN NUMARASI ", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.IBAN, "", new { @class = "text-danger" })
+    </div>
+    <div style="margin-top: 20px;"></div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BankName, "BANKA ADI ", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Currency, "Para Birimi ", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+    </div>
+
+    <div style="margin-top: 20px;"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Oluştur</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        @Html.ActionLink("Listeye Dön", "CustomerAccounts", "CurrentAccount")
+    </div>
+}

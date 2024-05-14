@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BankInstructionApp.Models.BankAccount>
+
+@{
+    ViewBag.Title = "Bank Accounts";
+}
+
+<h2>BANKA HESAPLARI</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>IBAN</th>
+                <th>Banka Adı</th>
+                <th>Şube Adı</th>
+                <th>Para Birimi</th>
+                <th>Açıklama</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.IBAN</td>
+                    <td>@item.BankName</td>
+                    <td>@item.BranchName</td>
+                    <td>@item.Currency</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a href="@Url.Action("UpdateBankAccount", "BankAccount", new { id = item.BankAccountId })" class="btn btn-primary">Güncelle</a>
+                        <button onclick="confirmDelete('@item.BankAccountId')" class="btn btn-danger">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Bu banka hesabını silmek istediğinizden emin misiniz?")) {
+            window.location.href = '@Url.Action("DeleteBankAccount", "BankAccount")?id=' + id;
+        }
+    }
+</script>
+
+<div style="position: fixed; top: 80px; right: 20px; width: 200px;">
+    <a href="@Url.Action("NewBankAccount", "BankAccount")" class="btn btn-primary btn-lg">Yeni Kayıt Ekle</a>
+</div>
+ 

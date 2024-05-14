@@ -1,0 +1,37 @@
+﻿@model BankInstructionApp.Models.OperationType
+@{
+    ViewBag.Title = "NewOperationType";
+}
+
+<h2>Yeni işlem türü</h2>
+<div style="margin-top: 20px;"></div>
+
+@using (Html.BeginForm("Create", "OperationType", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BankOperationTpye, "İşlem türü", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.BankOperationTpye, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.BankOperationTpye, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, "Açıklama", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <div style="margin-top: 20px;"></div>
+
+   
+    <div style="margin-top: 20px;"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Oluştur</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        @Html.ActionLink("Listeye Dön", "OperationType", "OperationType")
+    </div>
+}
+

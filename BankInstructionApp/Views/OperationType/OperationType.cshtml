@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BankInstructionApp.Models.OperationType>
+@{
+    ViewBag.Title = "OperationType";
+}
+
+<h2> İşlem Türleri</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>İŞLEM TÜRÜ</th>
+                <th>AÇIKLAMA</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BankOperationTpye</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a href="@Url.Action("UpdateOperationType", "OperationType", new { id = item.opreationID })" class="btn btn-primary">Güncelle</a>
+                        <button onclick="confirmDelete('@item.opreationID')" class="btn btn-danger">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm("Bu işlem türünü silmek istediğinizden emin misiniz?")) {
+            window.location.href = '@Url.Action("DeleteOperationType", "OperationType")?id=' + id;
+        }
+    }
+</script>
+
+
+<div style="position: fixed; top: 80px; right: 20px; width: 200px;">
+    <a href="@Url.Action("NewOperationType", "OperationType")" class="btn btn-primary btn-lg">Yeni Kayıt Ekle</a>
+</div>

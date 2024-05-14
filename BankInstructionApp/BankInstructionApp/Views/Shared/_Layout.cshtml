@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Banka Talimat Uygulaması</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-brand {
+            margin-right: 50px;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            <div class="navbar-brand">
+                
+                @Html.ActionLink("Banka Talimat Uygulaması", "BankInstructionApp", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Gezintiyi aç/kapat" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item" style="margin-right: 30px;">@Html.ActionLink("Cari Hesaplar", "CustomerAccounts", "CurrentAccount", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item" style="margin-right: 30px;">@Html.ActionLink("Banka Hesaplarım", "BankAccounts", "BankAccount", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item" style="margin-right: 30px;">@Html.ActionLink("İşlem Türleri", "OperationType", "OperationType", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Talimatlar", "Instructions", "Instruction", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>@Html.ActionLink("Banka Hesabı", "NewBankAccount", "BankAccount", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Cari Hesabı", "NewCurrentAccount", "CurrentAccount", new { area = "" }, new { @class = "dropdown-item" })</li>                   
+                            <li>@Html.ActionLink("İşlem Türü", "NewOperationType", "OperationType", new { area = "" }, new { @class = "dropdown-item" })</li>                   
+                            <li>@Html.ActionLink("Talimatlar", "NewInstructions", "Instructions", new { area = "" }, new { @class = "dropdown-item" })</li>                   
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+           
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

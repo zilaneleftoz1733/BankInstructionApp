@@ -1,0 +1,56 @@
+﻿@model BankInstructionApp.Models.InstructionViewModel
+@{
+    ViewBag.Title = "Talimatları Güncelle";
+}
+
+<h2>Talimatları Güncelleme</h2>
+<div style="margin-top: 20px;"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div style="margin-top: 20px;"></div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankAccountId, "Banka Hesabı", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BankAccountId, new SelectList(Model.YourBankAccountList, "Value", "Text"), "Banka Hesabı Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BankAccountId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div style="margin-top: 20px;"></div>
+        <div class="form-group">
+            @Html.Label("Cari Hesap", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBox("selectedCustomerBankInfoIds", (MultiSelectList)ViewBag.SelectedCustomerBankInfoIds, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerBankInfoIds, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div style="margin-top: 20px;"></div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.operationTypeID, "İşlem Türü", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.operationTypeID, new SelectList(Model.YourOperationTypeList, "Value", "Text"), "İşlem Türü Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.operationTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;"></div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Güncelle" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+<div style="margin-top: 20px;"></div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        
+        @Html.ActionLink("Listeye Geri Dön", "Instructions", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
